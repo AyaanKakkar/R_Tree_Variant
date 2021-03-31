@@ -17,8 +17,7 @@ const long double startY_MBR = 0;
 
 const int EXPERIMENT_NO = 1;
 
-const string INDEX_FILE_NAME = "Tree_100k.bin";
-
+const string INDEX_FILE_NAME = "Tree.bin";
 
 
 Rectangle getQueryRectangle(long double windowSize) {

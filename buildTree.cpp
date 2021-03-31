@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const string indexFileName = "Tree_100k.bin";
+const string indexFileName = "Tree.bin";
 
 const int32_t pageSize = 16384;
 const int32_t maxEntries = 128;
@@ -35,12 +35,9 @@ int main() {
     rtree = RTree::CreateIndex(indexFileName, pageSize, maxEntries, minEntries);
     
     for (int32_t i = 0; i < poi_count; i++) {
-        
-        if (i % 10000 == 0) {
-            cout << "i = " << i << endl;
-        }
-        
         rtree -> insert(MBRs[i], poiID[i], poiTypes[i]);
     }
+
+    cout << "Tree Succesfully Built" << endl;
 }
 

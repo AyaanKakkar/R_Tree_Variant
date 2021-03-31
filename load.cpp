@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const string DATASET_FILE = "dataset_100k_0.7skew.bin";
+const string DATASET_FILE = "dataset.bin";
 
 
 int32_t loadData(int32_t* &poiID, Rectangle* &MBRs, Poi_Type* &poiTypes) {
