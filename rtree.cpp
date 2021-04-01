@@ -4,6 +4,7 @@
 #include <deque>
 #include <vector>
 #include "rtree.h"
+#include <config.hpp>
 
 #define MIN(a, b) (a) < (b) ? a : b
 

@@ -2,7 +2,7 @@
 #define _GENERATE
 #include <cstdint>
 #include <rectangle.h>
-#include <poiType.h>
+#include <poiType.hpp>
 
 #include <vector>
 

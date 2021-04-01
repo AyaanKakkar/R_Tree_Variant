@@ -1,7 +1,5 @@
 #ifndef _RTREE
 #define _RTREE
-#define BITMAP_SIZE 10
-#define SUB_BITMAP_SIZE 5
 #include <string>
 #include <fstream>
 #include <vector>

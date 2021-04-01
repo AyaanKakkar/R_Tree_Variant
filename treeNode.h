@@ -5,8 +5,8 @@
 #include <list>
 #include <vector>
 #include "rectangle.h"
-#include "keyValue.h"
-#include "poiType.h"
+#include "keyValue.hpp"
+#include "poiType.hpp"
 
 using namespace std;
 

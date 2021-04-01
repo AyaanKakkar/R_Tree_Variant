@@ -8,18 +8,9 @@
 #include <algorithm>
 #include <random>
 #include <iostream>
+#include <config.hpp>
 
 using namespace std;
-
-const int bucketsize = 64;
-const int rows = 8;
-const int cols = 8;
-
-const int bitmapSize = 10;
-const int subBitmapSize = 5;
-
-const double bitmapDistribution_skew = 0.7;
-const double subBitmapDistribution_skew = 0.7;
 
 #define MIN(a, b) (a) < (b) ? a : b
 
@@ -46,7 +37,7 @@ int32_t generateData(int32_t size, double skew, int32_t* &poiID, Rectangle* &MBR
     poiTypes = new Poi_Type[poiCount];
 
     // Bitmaps
-    vector <int> bitmap_dist = getBucketFreq(poiCount, bitmapDistribution_skew, bitmapSize);
+    vector <int> bitmap_dist = getBucketFreq(poiCount, BITMAP_DISTRIBUTION_SKEW, BITMAP_SIZE);
     int32_t* bitmap_basket = new int32_t[poiCount];
 
     int bucketID = 0;
@@ -61,7 +52,7 @@ int32_t generateData(int32_t size, double skew, int32_t* &poiID, Rectangle* &MBR
     shuffle(bitmap_basket, bitmap_basket + poiCount,
             default_random_engine(time(0)));
 
-    vector <int> subBitmap_dist = getBucketFreq(poiCount, subBitmapDistribution_skew, subBitmapSize);
+    vector <int> subBitmap_dist = getBucketFreq(poiCount, SUB_BITMAP_DISTRIBUTION_SKEW, SUB_BITMAP_SIZE);
     int32_t* subBitmap_basket = new int32_t[poiCount];
 
     bucketID = 0;
@@ -77,21 +68,21 @@ int32_t generateData(int32_t size, double skew, int32_t* &poiID, Rectangle* &MBR
             default_random_engine(time(0)));
 
     // Positioning
-    vector<int> bucket = getBucketFreq(size, skew, bucketsize);
+    vector<int> bucket = getBucketFreq(size, skew, BUCKET_SIZE);
 
-    int matrix[rows][cols];
+    int matrix[ROWS][COLS];
 
     int bucketIDX = 0;
 
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
             matrix[i][j] = bucket[bucketIDX++];
         }
     }
 
     int currIdx = 0;
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
             for (int k = 0; k < matrix[i][j]; k++) {
 
                 int t1 = rand() % (RAND_MAX - 1);

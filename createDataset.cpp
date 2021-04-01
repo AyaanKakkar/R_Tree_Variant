@@ -6,14 +6,10 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
-#include <poiType.h>
+#include <poiType.hpp>
+#include <config.hpp>
 
 using namespace std;
-
-const string DATASET_FILE = "dataset.bin";
-const int POIs = 100000;
-
-const double skew = 0.7;
 
 int32_t* poiID = nullptr;
 
@@ -26,7 +22,7 @@ Poi_Type* poiTypes = nullptr;
 
 int main() {
 
-    int poi_count = generateData(POIs, skew, poiID, MBRs, poiTypes);
+    int poi_count = generateData(POIs, SKEW, poiID, MBRs, poiTypes);
 
     fstream file;
     file.open(DATASET_FILE, ios::binary | ios::out);

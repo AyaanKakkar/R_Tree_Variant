@@ -7,15 +7,10 @@
 #include <chrono>
 #include <vector>
 #include <iomanip>
-#include <poiType.h>
+#include <poiType.hpp>
+#include <config.hpp>
 
 using namespace std;
-
-const string indexFileName = "Tree.bin";
-
-const int32_t pageSize = 16384;
-const int32_t maxEntries = 128;
-const int32_t minEntries = 64;
 
 int32_t poi_count;
 int32_t* poiID = nullptr;
@@ -30,9 +25,8 @@ RTree* rtree = nullptr;
 int main() {
 
     poi_count = loadData(poiID, MBRs, poiTypes);
-
-    
-    rtree = RTree::CreateIndex(indexFileName, pageSize, maxEntries, minEntries);
+   
+    rtree = RTree::CreateIndex(INDEX_FILE_NAME, PAGE_SIZE, MAX_ENTRIES, MIN_ENTRIES);
     
     for (int32_t i = 0; i < poi_count; i++) {
         rtree -> insert(MBRs[i], poiID[i], poiTypes[i]);

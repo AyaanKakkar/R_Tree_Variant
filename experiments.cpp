@@ -7,21 +7,13 @@
 #include <chrono>
 #include <vector>
 #include <iomanip>
+#include <config.hpp>
 
 using namespace std;
 
-const long double DEFAULT_WINDOW_PERCENTAGE = 6;
-const int DEFAULT_QUERY_TYPES = 4;
-const long double startX_MBR = 0;
-const long double startY_MBR = 0;
 
-const int EXPERIMENT_NO = 1;
-
-const string INDEX_FILE_NAME = "Tree.bin";
-
-
-Rectangle getQueryRectangle(long double windowSize) {
-    return Rectangle(startX_MBR, startX_MBR + windowSize, startY_MBR, startY_MBR + windowSize);
+Rectangle getQueryRectangle(long double windowSize_X, long double windowSize_Y) {
+    return Rectangle(QUERY_START_X, QUERY_START_X + windowSize_X, QUERY_START_Y, QUERY_START_Y + windowSize_Y);
 }
 
 int32_t* getBitmap(int numTypes) {
@@ -38,8 +30,11 @@ int32_t* getBitmap(int numTypes) {
     return bitmap;
 }
 
-long double getWindowSize(long double percentage) {
-    return 8.00 * percentage / 100.00;
+long double getWindowSize(long double percentage, bool x = true) {
+    if (x)
+        return (X_END - X_START) * percentage / 100.00;
+    else
+        return (Y_END - Y_START) * percentage / 100.00;
 }
 
 int main() {
@@ -52,14 +47,14 @@ int main() {
 
         cout << "Varying Query Window Size" << endl;
 
-        vector<long double> perc{3, 6, 9, 12, 15};
+        vector<long double> perc = PERC;
 
         vector<int> diskIO(5);
 
         vector<long double> times(5);
 
         for (int i = 0; i < perc.size(); i++) {
-            Rectangle queryMBR = getQueryRectangle(getWindowSize(perc[i]));
+            Rectangle queryMBR = getQueryRectangle(getWindowSize(perc[i], true), getWindowSize(perc[i], false));
 
             int32_t* bitmap = getBitmap(DEFAULT_QUERY_TYPES);
 
@@ -91,14 +86,14 @@ int main() {
         
         cout << "Varying Queried Types" << endl;
 
-        vector<long double> queryTypes{2, 4, 6, 8, 10};
+        vector<long double> queryTypes = QUERIED_TYPES;
 
         vector<int> diskIO(5);
 
         vector<long double> times(5);
 
         for (int i = 0; i < queryTypes.size(); i++) {
-            Rectangle queryMBR = getQueryRectangle(getWindowSize(DEFAULT_WINDOW_PERCENTAGE));
+            Rectangle queryMBR = getQueryRectangle(getWindowSize(DEFAULT_WINDOW_PERCENTAGE, true), getWindowSize(DEFAULT_WINDOW_PERCENTAGE, false));
 
             int32_t* bitmap = getBitmap(queryTypes[i]);
 
@@ -125,8 +120,8 @@ int main() {
     else {
         cout << "Varying Tree Size" << endl;
 
-        vector<long double> poi_count{400000, 800000, 1200000, 1600000, 2000000};
-        vector<string> indexFileNames{"Tree_400k.bin", "Tree_800k.bin", "Tree_1200k.bin", "Tree_1600k.bin", "Tree_2000k.bin"};
+        vector<long double> poi_count = POI_COUNT;
+        vector<string> indexFileNames = INDEX_FILE_NAMES;
 
         vector<int> diskIO(5);
 
@@ -138,7 +133,7 @@ int main() {
 
             cout << "Size : " << poi_count[i] << " | Tree Loaded" << endl; 
 
-            Rectangle queryMBR = getQueryRectangle(getWindowSize(DEFAULT_WINDOW_PERCENTAGE));
+            Rectangle queryMBR = getQueryRectangle(getWindowSize(DEFAULT_WINDOW_PERCENTAGE, true), getWindowSize(DEFAULT_WINDOW_PERCENTAGE, false));
 
             int32_t* bitmap = getBitmap(DEFAULT_QUERY_TYPES);
 

@@ -4,18 +4,15 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <config.hpp>
 
 using namespace std;
-
-const string DATASET_FILE = "dataset.bin";
-
 
 int32_t loadData(int32_t* &poiID, Rectangle* &MBRs, Poi_Type* &poiTypes) {
     fstream file;
     file.open(DATASET_FILE, ios::in | ios::binary);
 
     int POIs;
-
 
     file.read((char *) &POIs, sizeof(POIs));
 
@@ -26,11 +23,8 @@ int32_t loadData(int32_t* &poiID, Rectangle* &MBRs, Poi_Type* &poiTypes) {
 
     for (int i = 0; i < POIs; i++) {
 
-
         file.read((char *) &poiID[i], sizeof(poiID[i]));
         
-
-
         file.read((char *) &MBRs[i], sizeof(MBRs[i]));
         
         file.read((char *) &poiTypes[i], sizeof(poiTypes[i]));

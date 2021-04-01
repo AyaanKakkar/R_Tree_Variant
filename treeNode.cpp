@@ -2,6 +2,7 @@
 #include "rtree.h"
 #include <iostream>
 #include <vector>
+#include <config.hpp>
 
 using namespace std;
 

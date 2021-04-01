@@ -1,6 +1,7 @@
 #include "leafNode.h"
 #include "rtree.h"
 #include <iostream>
+#include <config.hpp>
 
 using namespace std;
 
